@@ -62,7 +62,7 @@ type = "application"      # application / game / data / … (Section 13)
 arch = "64"               # optional: 32 / 64 / arm64
 compression = "zstd"      # none / zstd
 compression-kind = "per-file"   # per-file / whole-archive
-compression-level = 3
+compression-level = 11
 
 source = "path/to/files"  # folder whose contents become the package
 output = "dist"           # optional output directory
