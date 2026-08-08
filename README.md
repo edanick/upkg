@@ -1,8 +1,13 @@
-# UPKG — Universal Package Format & CLI
+# UPKG - Universal Package Format & CLI
 
 A **cross-platform** package format and command-line tool written in Rust.
 Builds and installs `.upkg` packages on **Windows**, **Linux**, and **macOS**.
 Analogous to Debian's `dpkg` but not tied to any single distribution.
+
+## Credits
+
+- **Author:** Edan
+- **Version:** 0.1.0
 
 ## Quick start
 
@@ -81,7 +86,7 @@ exec = "myapp --flag"
 | Header            | Fixed binary block, 17 fields (Section 7.2)                   |
 | Hashes            | 4 × SHA-1 (80 bytes): header, master, tree, metadata          |
 | Metadata          | dpkg-control-like UTF-8 text file (Section 6)                 |
-| Entries tree      | Recursive UTF-8 tree — one NUL-delimited line per entry       |
+| Entries tree      | Recursive UTF-8 tree - one NUL-delimited line per entry       |
 | File data         | Per-file or whole-archive compressed with zstd or stored raw  |
 | Signature         | Optional ed25519 over all preceding bytes                     |
 | Compression       | `none` / `zstd`; RAR is forbidden (open-format requirement)   |
@@ -93,18 +98,18 @@ exec = "myapp --flag"
 The following implementation details are proposals (the specification leaves them
 open):
 
-- **Header encoding** — fixed 45-byte binary prefix (magic + u32/u64/u8 fields)
+- **Header encoding** - fixed 45-byte binary prefix (magic + u32/u64/u8 fields)
   followed by nine NUL-terminated UTF-8 strings.
-- **Entries tree encoding** — one line per entry; fields delimited by `\0`
+- **Entries tree encoding** - one line per entry; fields delimited by `\0`
   (NUL), records by `\n` (LF); depth-folding for the recursive structure.
-- **Signature section** — 7-byte marker `UPKGSIG`, 32-byte ed25519 public key,
+- **Signature section** - 7-byte marker `UPKGSIG`, 32-byte ed25519 public key,
   64-byte signature (103 bytes total). The marker makes presence unambiguous.
-- **`source`** config key — the directory whose contents become the package.
-- **`output`** config key — optional output directory override.
-- **`upkg keygen`** — helper to generate ed25519 signing keys.
-- **`UPKG_ROOT`** environment variable — overrides the default install root
+- **`source`** config key - the directory whose contents become the package.
+- **`output`** config key - optional output directory override.
+- **`upkg keygen`** - helper to generate ed25519 signing keys.
+- **`UPKG_ROOT`** environment variable - overrides the default install root
   (useful for portable installs and tests).
-- **`max-download-minutes`** — in the install config file, the configurable
+- **`max-download-minutes`** - in the install config file, the configurable
   speed-gate limit for full downloads (default 20 minutes).
 
 ## License
